@@ -2,6 +2,7 @@ from discord import utils
 from discord.client import Client
 from discord.guild import Guild
 from discord.message import Message
+from discord.reaction import Reaction
 
 
 class PizzaClient(Client):
@@ -23,5 +24,38 @@ class PizzaClient(Client):
 
     if (content.lower().strip() == 'pizza'):
       await message.channel.send('🍕')
-    elif ('pizza' in content.lower()):
-      await message.add_reaction('🍕')
+      return
+
+    await self.pizza_reaction(message)
+
+  
+  async def on_message_edit(self, before: Message, after: Message): 
+    if after.author == self.user:
+      return
+    if after.guild != self.active_guild:
+      return
+
+    await self.pizza_reaction(after)
+
+
+  async def pizza_reaction(self, message: Message):
+    own_reactions: list[str] = [ r.emoji for r in message.reactions if r.me ]
+
+    reactions_target: list[str] = []
+
+    content: str = message.content.lower()
+    if ('pineapple pizza' in content or 'pizza with pineapple' in content):
+      reactions_target.append('👎')
+      reactions_target.append('🚫')
+    
+    elif ('pizza' in content):
+      reactions_target.append('🍕')
+      
+    reactions_to_remove = [ r for r in own_reactions if r not in reactions_target ]
+    reactions_to_add = [ r for r in reactions_target if r not in own_reactions]
+    
+    for r in reactions_to_remove:
+      await message.remove_reaction(r, self.user)
+    
+    for r in reactions_to_add:
+      await message.add_reaction(r)
