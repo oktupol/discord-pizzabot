@@ -13,11 +13,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+          
+      - run: cp requirements.txt src
 
       - name: Rsync to Raspberry Pi
         uses: oktupol/rsync-onion@v0.2.1
         with:
-          source_dir: ./
+          source_dir: ./src/
           destination_dir: /home/pi/discord-pizzabot
           ssh_user: pi
           ssh_privatekey: ${{ secrets.SSH_PRIVATEKEY }}
