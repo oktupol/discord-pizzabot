@@ -27,3 +27,10 @@ jobs:
           onion_host: ${{ secrets.ONION_HOST }}
           onion_client_auth_privatekey: ${{ secrets.ONION_CLIENT_AUTH_PRIVATEKEY }}
           delete: true
+            
+          before_rsync_command: |
+            sudo systemctl stop discord-pizzabot.service
+          
+          after_rsync_command: |
+            pip3 install -r /home/pi/discord-pizzabot/requirements.txt
+            sudo systemctl start discord-pizzabot.service
