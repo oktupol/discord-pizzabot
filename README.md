@@ -32,6 +32,9 @@ discord-pizzabot requires following environment variables:
   active. You can find out the server id by opening Discord in a web browser
   and opening a server there; the first numeric ID in the url is the server id.
   
+  The Bot account has to be added to the server manually prior to starting the
+  program.
+  
 For development purposes, you can save these inside a .env file in the
 repository root.
 
