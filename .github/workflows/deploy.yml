@@ -33,4 +33,4 @@ jobs:
           
           after_rsync_command: |
             pip3 install -r /home/pi/discord-pizzabot/requirements.txt
-            sudo systemctl start discord-pizzabot.service
+            [ "$(systemctl is-enabled discord-pizzabot.service)" = "enabled" ] && sudo systemctl start discord-pizzabot.service
