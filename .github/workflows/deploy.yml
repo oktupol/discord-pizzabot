@@ -21,7 +21,7 @@ jobs:
           destination_dir: /home/pi/discord-pizzabot
           ssh_user: pi
           ssh_privatekey: ${{ secrets.SSH_PRIVATEKEY }}
-          ssh_host_fingerprint: ${{ secret.SSH_HOST_FINGERPRINT }}
+          ssh_host_fingerprint: ${{ secrets.SSH_HOST_FINGERPRINT }}
           onion_host: ${{ secrets.ONION_HOST }}
           onion_client_auth_privatekey: ${{ secrets.ONION_CLIENT_AUTH_PRIVATEKEY }}
           delete: true
