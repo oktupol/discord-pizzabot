@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: 'Deploy to Raspberry Pi'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Rsync to Raspberry Pi
+        uses: oktupol/rsync-onion@v0.2.1
+        with:
+          source_dir: ./
+          destination_dir: /home/pi/discord-pizzabot
+          ssh_user: pi
+          ssh_privatekey: ${{ secrets.SSH_PRIVATEKEY }}
+          ssh_host_fingerprint: ${{ secret.SSH_HOST_FINGERPRINT }}
+          onion_host: ${{ secrets.ONION_HOST }}
+          onion_client_auth_privatekey: ${{ secrets.ONION_CLIENT_AUTH_PRIVATEKEY }}
+          delete: true
