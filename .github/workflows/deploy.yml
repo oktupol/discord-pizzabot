@@ -17,7 +17,7 @@ jobs:
       - run: cp requirements.txt src
 
       - name: Rsync to Raspberry Pi
-        uses: oktupol/rsync-onion@v0.2.1
+        uses: oktupol/rsync-onion@v0.2
         with:
           source_dir: ./src/
           destination_dir: /home/pi/discord-pizzabot
